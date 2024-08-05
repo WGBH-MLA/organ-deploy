@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: organ-ingress
+
+spec:
+  rules:
+    - host: organ.wgbh-mla.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: organ
+                port:
+                  number: 80

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  labels:
+    app: organ
+  name: organ
+
+spec:
+  selector:
+    matchLabels:
+      app: organ
+
+  template:
+    metadata:
+      labels:
+        app: organ
+
+    spec:
+      containers:
+        - image: ghcr.io/wgbh-mla/organ:pr-2
+          imagePullPolicy: Always
+          name: organ
+          command:
+            [
+              'gunicorn',
+              'organ.app:app',
+              '-b',
+              '0.0.0.0:8000',
+              '--workers',
+              '4',
+              '--worker-class',
+              'uvicorn.workers.UvicornWorker',
+              '--forwarded-allow-ips',
+              '*',
+              '--access-logfile',
+              '-',
+              '--error-logfile',
+              '-',
+              '--timeout',
+              '60',
+            ]
+          resources:
+            limits:
+              cpu: '2'
+              memory: '2Gi'
+            requests:
+              cpu: '100m'
+              memory: '100Mi'
+          envFrom:
+            - configMapRef:
+                name: organ-config
+            - secretRef:
+                name: organ-secret

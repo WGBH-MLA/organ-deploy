@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: organ
+spec:
+  selector:
+    app: organ
+  ports:
+    - protocol: TCP
+      name: web
+      port: 80
+      targetPort: 8000
