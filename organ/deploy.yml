@@ -18,13 +18,13 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/organ:pr-2
+        - image: ghcr.io/wgbh-mla/organ:pr-3
           imagePullPolicy: Always
           name: organ
           command:
             [
               'gunicorn',
-              'organ.main:main',
+              'organ.app:app',
               '-b',
               '0.0.0.0:8000',
               '--workers',
