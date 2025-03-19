@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: organ-ingress
+  name: organ-ingress-staging
   annotations:
-   cert-manager.io/cluster-issuer: letsencrypt-production
+   cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   ingressClassName: traefik
   tls:
    - hosts:
-     - organ.wgbh-mla.org
-     secretName: organ-tls
+     - demo.organ.wgbh-mla.org
+     secretName: organ-staging-tls
   rules:
-  - host: organ.wgbh-mla.org
+  - host: demo.organ.wgbh-mla.org
     http:
       paths:
         - path: /
